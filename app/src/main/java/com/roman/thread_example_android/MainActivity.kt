@@ -10,16 +10,16 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.roman.thread_example_android.ui.screens.MainScreen
 import com.roman.thread_example_android.ui.theme.ThreadExampleAndroidTheme
-import com.roman.thread_example_android.util.Constants.BOTTOM_LEFT
-import com.roman.thread_example_android.util.Constants.BOTTOM_RIGHT
-import com.roman.thread_example_android.util.Constants.TOP_LEFT
-import com.roman.thread_example_android.util.Constants.TOP_RIGHT
 import com.roman.thread_example_android.view_model.ViewModel
 
 class MainActivity : ComponentActivity() {
 
     companion object {
         const val TAG = "MainActivity"
+        const val TOP_LEFT = "Top Left"
+        const val TOP_RIGHT = "Top Right"
+        const val BOTTOM_LEFT = "Bottom Left"
+        const val BOTTOM_RIGHT = "Bottom Right"
     }
 
     private val viewModel = ViewModel()

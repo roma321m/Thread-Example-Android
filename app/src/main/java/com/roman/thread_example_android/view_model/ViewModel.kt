@@ -1,35 +1,47 @@
 package com.roman.thread_example_android.view_model
 
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.roman.thread_example_android.util.Constants.DEFAULT_TEXT
-import com.roman.thread_example_android.util.Constants.DELAY_TIME_IN_MILLI
-import com.roman.thread_example_android.util.Constants.MSG_CODE
+import com.roman.thread_example_android.model.HandlerThreadImplementation
+import com.roman.thread_example_android.model.Implementation
+import com.roman.thread_example_android.model.ImplementationType
+import com.roman.thread_example_android.model.MessageHandlerImplementation
 
 class ViewModel {
+
+    companion object {
+        const val DEFAULT_TEXT = "Change this text with handler"
+    }
 
     var text by mutableStateOf(DEFAULT_TEXT)
         private set
 
-    private fun updateText(newText: String) {
+    fun updateText(newText: String) {
         text = newText
     }
 
-    private val messageHandler = object : Handler(Looper.getMainLooper()) {
-        override fun handleMessage(msg: Message) {
-            when (msg.what) {
-                MSG_CODE -> updateText(msg.obj as String)
-                else -> updateText(DEFAULT_TEXT)
+    private var implementationType by mutableStateOf(ImplementationType.MESSAGE_HANDLER)
+
+    fun updateImplementationState(newState: ImplementationType) {
+        implementationType = newState
+    }
+
+    private var implementation: Implementation = HandlerThreadImplementation(this)
+
+    // todo - use in main to change implementation style
+    fun updateImplementation() {
+        when (implementationType) {
+            ImplementationType.MESSAGE_HANDLER -> {
+                implementation = MessageHandlerImplementation(this)
+            }
+            ImplementationType.HANDLER_THREAD -> {
+                implementation = HandlerThreadImplementation(this)
             }
         }
     }
 
-    fun buttonClick(msg: String) {
-        messageHandler.removeMessages(MSG_CODE)
-        messageHandler.sendMessageDelayed(messageHandler.obtainMessage(MSG_CODE, msg), DELAY_TIME_IN_MILLI)
+    fun buttonClick(text: String) {
+        implementation.onButtonClick(text)
     }
 }
