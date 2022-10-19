@@ -13,10 +13,12 @@ import com.roman.thread_example_android.ui.theme.ThreadExampleAndroidTheme
 @Composable
 fun MainScreen(
     text: String,
-    onTopLeftClick: () -> Unit,
-    onBottomLeftClick: () -> Unit,
-    onTopRightClick: () -> Unit,
-    onBottomRightClick: () -> Unit,
+    onTopLeftClicked: () -> Unit,
+    onBottomLeftClicked: () -> Unit,
+    onTopRightClicked: () -> Unit,
+    onBottomRightClicked: () -> Unit,
+    onMessageHandlerClicked: () -> Unit,
+    onHandlerThreadClicked: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -31,14 +33,35 @@ fun MainScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Button(onClick = onTopLeftClick) {
+            Button(onClick = onTopLeftClicked) {
                 Text(text = "Top Left")
             }
-            Button(onClick = onTopRightClick) {
+            Button(onClick = onTopRightClicked) {
                 Text(text = "Top Right")
             }
         }
-        Text(text = text)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Button(onClick = onMessageHandlerClicked) {
+                    Text(text = "Message Handler")
+                }
+                Button(onClick = onHandlerThreadClicked) {
+                    Text(text = "Handler Thread")
+                }
+                Spacer(modifier = Modifier.padding(16.dp))
+                Text(text = text)
+            }
+        }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -46,10 +69,10 @@ fun MainScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Button(onClick = onBottomLeftClick) {
+            Button(onClick = onBottomLeftClicked) {
                 Text(text = "Bottom Left")
             }
-            Button(onClick = onBottomRightClick) {
+            Button(onClick = onBottomRightClicked) {
                 Text(text = "Bottom Right")
             }
         }
@@ -60,6 +83,6 @@ fun MainScreen(
 @Composable
 fun DefaultPreview() {
     ThreadExampleAndroidTheme {
-        MainScreen("", {}, {}, {}, {})
+        MainScreen("", {}, {}, {}, {}, {}, {})
     }
 }

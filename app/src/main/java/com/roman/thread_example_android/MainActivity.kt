@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import com.roman.thread_example_android.model.ImplementationType
 import com.roman.thread_example_android.ui.screens.MainScreen
 import com.roman.thread_example_android.ui.theme.ThreadExampleAndroidTheme
 import com.roman.thread_example_android.view_model.ViewModel
@@ -37,17 +38,23 @@ class MainActivity : ComponentActivity() {
                 ) {
                     MainScreen(
                         text = viewModel.text,
-                        onTopLeftClick = {
+                        onTopLeftClicked = {
                             viewModel.buttonClick(TOP_LEFT)
                         },
-                        onTopRightClick = {
+                        onTopRightClicked = {
                             viewModel.buttonClick(TOP_RIGHT)
                         },
-                        onBottomLeftClick = {
+                        onBottomLeftClicked = {
                             viewModel.buttonClick(BOTTOM_LEFT)
                         },
-                        onBottomRightClick = {
+                        onBottomRightClicked = {
                             viewModel.buttonClick(BOTTOM_RIGHT)
+                        },
+                        onMessageHandlerClicked = {
+                            viewModel.updateImplementationState(ImplementationType.MESSAGE_HANDLER)
+                        },
+                        onHandlerThreadClicked = {
+                            viewModel.updateImplementationState(ImplementationType.HANDLER_THREAD)
                         }
                     )
                 }

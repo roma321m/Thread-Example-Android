@@ -11,7 +11,7 @@ import com.roman.thread_example_android.model.MessageHandlerImplementation
 class ViewModel {
 
     companion object {
-        const val DEFAULT_TEXT = "Change this text with handler"
+        const val DEFAULT_TEXT = "Change this text"
     }
 
     var text by mutableStateOf(DEFAULT_TEXT)
